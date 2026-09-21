@@ -1,0 +1,19 @@
+name: Deploy FSI staging to Netlify
+on:
+  push:
+    branches: [fsi-netlify-staging]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: fsi-netlify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Upload FSI source and trigger Netlify build
+        run: npx -y @netlify/mcp@latest --site-id 20ea1582-6992-40df-ab3c-2f6030b58901 --proxy-path "https://netlify-mcp.netlify.app/proxy/eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..5lpatMLbQIYGGzPN.XFkBTPHfY7Jfp6UTS7ErZmP4S7KR3kEDRvyIMWnnhtSnlrmHwTASKEDy8vYj6teSUucGmw3TZJhW0DIZ3lfkvY6EMSgCDcvbWpbJijLq6p9gKQXGi0DXG60S7IJTEhrNg5HwoCmzrxA-6oIUR02t9MDkwpTxD4FQVUBXeT_k5cYifbgYtF6tDGUrtXPDTgDwk3ZkMMfyU0Yc117Q2Fz4QtU3AUmILHLTiWGUTSiS58Vc7yadF4x8m7UZy3Y6UO-MsnSqts1pJoddCngN8M8UDIMOv7HqPO87zolPBA8yNY5C9TmAGWqPyVYIl_in8sKWD41FDC7ePst459lkXSwYMBnQ76z1aWU17Yzw0dYiVL4fAjHwNyWJQfiO0y-8ECaYPiEzS7HZ.TpVTJRk2OtLQg8JHnW3_lg" --no-wait
